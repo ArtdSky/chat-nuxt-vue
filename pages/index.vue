@@ -1,76 +1,45 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8>
-      <v-card min-width="400px">
+      <v-card min-width="400">
         <v-card-title>
-          <h1>Nuxt chat</h1>
+          <h1>Nuxt чат</h1>
         </v-card-title>
         <v-card-text>
-          <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-          >
-            <v-text-field
-              v-model="name"
-              :counter="16"
-              :rules="nameRules"
-              label="Your name"
-              required
-            ></v-text-field>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-text-field v-model="name" :counter="16" :rules="nameRules" label="Ваше имя" required></v-text-field>
 
-            <v-text-field
-              v-model="room"
-              :rules="roomRules"
-              label="Enter the Room"
-              required
-            ></v-text-field>
+            <v-text-field v-model="room" :rules="roomRules" label="Введите комнату" required></v-text-field>
 
-
-            <v-btn
-              :disabled="!valid"
-              color="primary"
-              class="mr-4"
-              @click="submit"
-            >
-              Enter
-            </v-btn>
-
-
+            <v-btn :disabled="!valid" color="primary" @click="submit">Войти</v-btn>
           </v-form>
         </v-card-text>
       </v-card>
     </v-flex>
-
-
   </v-layout>
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
-
+import { mapMutations } from "vuex";
 export default {
-  layout: 'empty',
+  layout: "empty",
   head: {
-    title: 'Welcome to Nuxt chat'
+    title: "Добро пожаловать в Nuxt чат"
   },
   sockets: {
-    connect: function () {
-      console.log('Client IOconnected')
+    connect: function() {
+      console.log("socket connected");
     }
   },
   data: () => ({
     valid: true,
-    name: '',
+    name: "",
     nameRules: [
-      v => !!v || 'Enter the Name',
-      v => (v && v.length <= 10) || 'Name must be less than 16 characters',
+      v => !!v || "Введите имя",
+      v => (v && v.length <= 16) || "Имя не должно превышать 16 символов"
     ],
-    room: '',
-    roomRules: [
-      v => !!v || 'Enter the Room Number ',
-    ]
-
+    room: "",
+    roomRules: [v => !!v || "Введите комнату"]
   }),
   methods: {
     ...mapMutations(["setUser"]),
@@ -79,11 +48,19 @@ export default {
         const user = {
           name: this.name,
           room: this.room
-        }
-        this.setUser(user)
-        this.$router.push('/chat')
+        };
+
+        this.$socket.emit("userJoined", user, data => {
+          if (typeof data === "string") {
+            console.error(data);
+          } else {
+            user.id = data.userId;
+            this.setUser(user);
+            this.$router.push("/chat");
+          }
+        });
       }
     }
   }
-}
+};
 </script>
