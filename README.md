@@ -1,7 +1,7 @@
 # chat-nuxt
-
-> project use Vue, Nuxt, Socket.io, Vuetify
-
+>Simple locale chat without BD based on Vue, Nuxt, Socket.io, Vuetify
+>
+>_for locale testing this chat use several browser window_
 
 ``` bash
 # install dependencies
