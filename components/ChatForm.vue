@@ -17,7 +17,7 @@ export default {
   }),
   methods: {
     send(){
-      this.socket.emit('createMessage', {
+      this.$socket.emit('createMessage', {
         text: this.text,
         id: this.$store.state.user.id
       }, (data)=>{
