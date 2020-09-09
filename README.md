@@ -1,8 +1,7 @@
 # chat-nuxt
 
-> My world-class Nuxt.js project
+> project use Vue, Nuxt, Socket.io, Vuetify
 
-## Build Setup
 
 ``` bash
 # install dependencies
@@ -18,5 +17,5 @@ $ npm start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+>
+_This project was created by course of youtube chanell 'Vladilen Minin'_
