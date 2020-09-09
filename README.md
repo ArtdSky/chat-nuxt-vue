@@ -18,4 +18,4 @@ $ npm start
 $ npm run generate
 ```
 >
-_This project was created by course of youtube chanell 'Vladilen Minin'_
+_This project was created by course of youtube channel 'Vladilen Minin'_
